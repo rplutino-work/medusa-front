@@ -1,0 +1,410 @@
+@import "./utils/font-faces";
+@import "./utils/media";
+@import "./utils/variables";
+
+// INICIO SWIPER STYLES
+
+.swiper-button-prev, .swiper-button-next {
+   
+    &::after {
+        color: #8C8A68;
+        font-size: 25px !important;
+    }
+    @include respond(phone) {
+        display: none !important;
+    }
+}
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+    bottom: 25px;
+}
+.swiper-pagination-bullet {
+    background-color: white !important;
+}
+.swiper-pagination-bullet-active {
+    background-color: #8C8A68 !important;
+}
+
+
+// INICIO NAVBAR
+.header-logo {
+    height: 50px;
+    margin-bottom: 5px;
+}
+.navbar-container {
+    transition: all 600ms ease-in;
+    // mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1.0) 85%, transparent 100%);
+    .\!bg-black {
+        // background-image: url(/header-background.jpeg);
+        transition: all 600ms ease-in;
+    }
+    .bg-transparent {
+        transition: all 600ms ease-out;
+    }
+}
+
+.navbar-item-link {
+    &::after {
+        content: " ";
+        background-image: url(/down-arrow.png);
+        width: 14px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        margin-left: 5px;
+        margin-top: 2px;
+        color: white;
+    }
+}
+
+.navbar-item {
+    /* text-transform: uppercase; */
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    position: relative;
+    height: auto;
+    font-weight: 100;
+    color: white;
+    &:hover {
+        color: #8C8A68;
+        transition: all 200ms ease-in-out;
+        &:after {
+            opacity: 1;
+            -webkit-transform: scale(1);
+            transform: scale(1);
+          }
+      }
+    &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        display: inline-block;
+        height: 1em;
+        width: 100%;
+        border-bottom: 1px solid #8C8A68;
+        margin-top: 10px;
+        opacity: 0;
+        -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+        transition: opacity 0.35s, transform 0.35s;
+        -webkit-transform: scale(0,1);
+        transform: scale(0,1);
+      }
+  }
+  .dropdown-item {
+    text-transform: uppercase;
+    // font-family: 'Heebo', sans-serif;
+    font-weight: 400;
+  }
+  .dropdown-item-list {
+    // font-family: 'Heebo', sans-serif;
+    font-weight: 100;
+    &:hover {
+        font-weight: 500;
+        color: #8C8A68;
+        transition: all 200ms ease-in-out;
+      }
+  }
+  .header-backgroung-panel {
+    background-image: url(https://i.pinimg.com/originals/35/75/d9/3575d9ce2805f5bb2777a4f1b0e70e9d.jpg);
+  }
+  .header-languages {
+
+  }
+  header {
+    height: auto !important;
+    color: white;
+  }
+
+// FIN NAVBAR
+
+// INICIO HOME SLIDER 1
+  .home-slider-1 {
+    height: 95vh;
+    .swiper {
+        width: 100%;
+        height: 100%;
+      }
+    .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .swiper-button-prev, .swiper-button-next {
+        display: none;
+    }
+  }
+// FIN HOME SLIDER 1
+
+// INICIO HOME SLIDER 2
+  .home-slider-2 {
+    padding: 0 5%;
+    padding-top: 4rem;
+    @include respond(phone) {
+        padding: 3rem;
+        padding-bottom: 0rem;
+        .swiper-button-prev, .swiper-button-next {
+            display: none;
+        }
+    }
+    p {
+        margin: 1rem;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        font-family: 'Poppins', sans-serif;
+        color: #59573C;
+        @include respond(phone) {
+            margin: 0rem;
+            margin-bottom: 2rem;
+        }
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+      
+        /* Center slide text vertically */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+            display: block;
+            width: auto;
+            height: 80px;
+            object-fit: cover;
+          }
+      }
+    .swiper-pagination-bullets {
+        display: none;
+    }
+  }
+// FIN HOME SLIDER 2
+
+// INICIO FEATURED PRODUCTS
+.featured-products-block {
+    span {
+        font-family: 'Poppins', sans-serif;
+        text-transform: uppercase;
+        color: #59573C;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        font-size: 13px;
+        margin-bottom: 0;
+    }
+    p {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: -.025em;
+        color: #222;
+        font-family: 'Poppins';
+    }
+}
+// FIN FEATURED PRODUCTS
+
+// INICIO HOME SLIDER 3
+.home-slider-3 {
+    padding: 0 10%;
+    margin-top: 4rem;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    @include respond(desktop) {
+    .home-slider-3-banner-1, .home-slider-3-banner-2, .home-slider-3-banner-3 {
+        border-radius: 6px;
+        background-color: #ccc;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        line-height: 1.6;
+        position: relative;
+	    overflow: hidden;
+        cursor: pointer;
+        &::before {
+            background: linear-gradient(
+                to right,
+                fade_out(#fff, 1) 0%,
+                fade_out(#fff, 0.7) 100%
+            );
+            content: "";
+            display: block;
+            height: 100%;
+            left: -100%;
+            position: absolute;
+            top: 0;
+            transform: skewX(-25deg);
+            width: 50%;
+            z-index: 2;
+        }
+    
+        &:hover,
+        &:focus {
+            &::before {
+                animation: shine 1.20s;
+            }
+        }
+    
+        @keyframes shine {
+            100% {
+                left: 125%;
+            }
+        }
+        img {
+            height: auto;
+		    max-width: 100%;
+        }
+    }
+    }
+    @include respond(phone) {
+        padding: 0rem;
+        padding-bottom: 0rem;
+        flex-direction: column;
+        align-items:normal;
+        img {
+            width: 100%;
+            padding: 10px;
+        }
+    }
+}
+// FIN HOME SLIDER 3
+
+// INICIO HOME GRID BANNERS
+
+.grid-banners-home {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4rem;
+    @include respond(phone) {
+        flex-direction: column;
+    }
+    .grid-banners-home-50-1 {
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        div {
+            width: 100%;
+            img{
+                width: 100%;
+                transition: all 200ms ease-in-out;
+                &:hover {
+                filter: brightness(75%);
+                transition: all 200ms ease-in-out;
+                }
+            }
+        }
+        @include respond(phone) {
+            width: 100%;
+        }
+    }
+    .grid-banners-home-50-2 {
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        div {
+            width: 50%;
+            img{
+                width: 100%;
+                transition: all 200ms ease-in-out;
+                &:hover {
+                filter: brightness(75%);
+                transition: all 200ms ease-in-out;
+                }
+            }
+        }
+        @include respond(phone) {
+            width: 100%;
+        }
+    }
+}
+// FIN HOME GRID BANNERS
+
+// INICIO CONONCE MAS BANNER
+.conoce-mas-banner {
+    --tw-bg-opacity: 0;
+    background-color: #8C8A68;
+    h3, span {
+        color: #F2F2F2;
+    }
+}
+// FIN CONONCE MAS BANNER
+  @include respond(phone) {
+    .header-items-1 {
+        order: 2;
+        justify-content: center;
+    }
+    .header-items-2 {
+    order: 1;
+    justify-content: left;
+    }
+    .header-items-3 {
+    order: 3;
+    }
+  }
+  
+
+
+  // INICIO SABANA PRODUCTOS
+
+  .collection-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+  }
+
+  .collection-top-banner {
+    width: 100% ;
+  }
+  .shelf-cucardas-container {
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    .shelf-cucardas-box {
+        width: 100%;
+        padding: 5px;
+        margin: 5px;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+  }
+  .product-shelf {
+    .shelf-cucardas-container {
+        width: 60px;
+        top: 5px;
+        left: 5px;
+      }
+    span {
+        font-family: 'Poppins', sans-serif;
+        text-transform: uppercase;
+        color: #222;
+        font-weight: 400;
+        letter-spacing: 0.1em;
+        font-size: 13px;
+        margin-bottom: 0;
+    }
+    p {
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: -.025em;
+        color: #222;
+        font-family: 'Poppins';
+    }
+}
+.dropdown-menu-container {
+    span {
+
+        color: white;
+
+    }
+}
