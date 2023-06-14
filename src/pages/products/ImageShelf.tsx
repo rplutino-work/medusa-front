@@ -6,7 +6,6 @@ import Layout from "@modules/layout/templates"
 import ProductTemplate from "@modules/products/templates"
 import SkeletonProductPage from "@modules/skeletons/templates/skeleton-product-page"
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query"
-import { GetStaticPaths, GetStaticProps } from "next"
 import { useRouter } from "next/router"
 import { ParsedUrlQuery } from "querystring"
 import { ReactElement } from "react"
@@ -65,18 +64,18 @@ const ShelfProductImage:React.FC<DetailProps> = ({ handle2}) => {
   }
 
   if (isSuccess) {
-    console.log(data)
+
     return (
       <div className="relative">
       <div className="shelf-cucardas-container">
-        {data.collection.id == "pcol_01GYBQYA0Y3CH181SWT7CYZ622"?
+        {data?.collection?.id == "pcol_01GYBQYA0Y3CH181SWT7CYZ622"?
           <div className="shelf-cucardas-box">
           <img src="/cucardas/cucarda-coleccion-1.png" alt={data.collection.title} />
           </div>
           :
           <></>
         }
-        {data.collection.id == "pcol_01GYCS86X8331SNRR96VC1AAV9"?
+        {data?.collection?.id == "pcol_01GYCS86X8331SNRR96VC1AAV9"?
           <div className="shelf-cucardas-box">
           <img src="/cucardas/cucarda-coleccion-2.png" alt={data.collection.title} />
           </div>
@@ -94,12 +93,12 @@ const ShelfProductImage:React.FC<DetailProps> = ({ handle2}) => {
         modules={[Pagination, Navigation]}
         className="mySwiper-2"
       >
-      {data.images.map((image, index) => {
+      {data?.images?.map((image) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={image.url}>
               <img src={image.url} alt="" />
               
-        </SwiperSlide>
+            </SwiperSlide>
           )
         })}
         </Swiper>
@@ -112,38 +111,38 @@ const ShelfProductImage:React.FC<DetailProps> = ({ handle2}) => {
 }
 
 
-export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  const handles = await getProductHandles()
-  return {
-    paths: handles.map((handle) => ({ params: { handle } })),
-    fallback: true,
-  }
-}
+// export const getStaticPaths: GetStaticPaths<Params> = async () => {
+//   const handles = await getProductHandles()
+//   return {
+//     paths: handles.map((handle) => ({ params: { handle } })),
+//     fallback: true,
+//   }
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const handle = context.params?.handle as string
-  const queryClient = new QueryClient()
+// }
+// export const getStaticProps: GetStaticProps = async (context) => {
+//   const handle = context.params?.handle as string
+//   const queryClient = new QueryClient()
 
-  await queryClient.prefetchQuery([`get_product`, handle], () =>
-    fetchProduct(handle)
-  )
+//   await queryClient.prefetchQuery([`get_product`, handle], () =>
+//     fetchProduct(handle)
+//   )
 
-  const queryData = await queryClient.getQueryData([`get_product`, handle])
+//   const queryData = await queryClient.getQueryData([`get_product`, handle])
 
-  if (!queryData) {
-    return {
-      props: {
-        notFound: true,
-      },
-    }
-  }
+//   if (!queryData) {
+//     return {
+//       props: {
+//         notFound: true,
+//       },
+//     }
+//   }
 
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
-      notFound: false,
-    },
-  }
-}
+//   return {
+//     props: {
+//       dehydratedState: dehydrate(queryClient),
+//       notFound: false,
+//     },
+//   }
+// }
 
 export default ShelfProductImage

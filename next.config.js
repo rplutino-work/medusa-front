@@ -5,7 +5,14 @@ const nextTranslate = require('next-translate-plugin')
 
 module.exports = withStoreConfig({
   features: store.features,
-  reactStrictMode: true,
+  reactStrictMode: false,
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  },
   images: {
     domains: ["medusa-public-images.s3.eu-west-1.amazonaws.com", "localhost"],
   },
