@@ -1,4 +1,4 @@
-import BrandsSwipper from './BrandsSwipper.js'
+import BrandsSwipper from './brandsSwipper'
 
 
 const Brands = () => {
