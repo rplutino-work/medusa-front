@@ -14,7 +14,9 @@ module.exports = withStoreConfig({
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ["medusa-public-images.s3.eu-west-1.amazonaws.com", "localhost"],
+    domains: [
+      "https://medusa-server-production.up.railway.app",
+    ],
   },
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
