@@ -42,7 +42,7 @@
     }
 }
 
-.navbar-item-link {
+.navbar-item-link-children {
     &::after {
         content: " ";
         background-image: url(/down-arrow.png);
@@ -93,6 +93,8 @@
     text-transform: uppercase;
     // font-family: 'Heebo', sans-serif;
     font-weight: 400;
+    cursor: pointer;
+    width: auto;
   }
   .dropdown-item-list {
     // font-family: 'Heebo', sans-serif;
@@ -408,3 +410,19 @@
 
     }
 }
+
+
+  // FIN SABANA PRODUCTOS
+
+
+
+  // INICIO PAGINA PRODUCTOS
+  .product-page-previews {
+    width: 15%;
+    .product-page-previews-button {
+        width: 100%;
+        height: 200px;
+    }
+  }
+
+  // FIN PAGINA PRODUCTOS

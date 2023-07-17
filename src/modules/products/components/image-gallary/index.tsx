@@ -22,12 +22,12 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
 
   return (
     <div className="flex items-start relative">
-      <div className="hidden small:flex flex-col gap-y-4 sticky top-20">
+      <div className="hidden small:flex flex-col gap-y-4 sticky top-20 product-page-previews">
         {images.map((image, index) => {
           return (
             <button
               key={image.id}
-              className="h-14 w-12 relative border border-white"
+              className="h-14 w-12 relative border border-white product-page-previews-button"
               onClick={() => {
                 handleScrollTo(image.id)
               }}

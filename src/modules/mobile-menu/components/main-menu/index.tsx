@@ -1,12 +1,19 @@
+import { Disclosure, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/solid';
 import { useMobileMenu } from "@lib/context/mobile-menu-context"
 import { useStore } from "@lib/context/store-context"
 import useCountryOptions from "@lib/hooks/use-country-options"
-import ChevronDown from "@modules/common/icons/chevron-down"
-import Search from "@modules/common/icons/search"
-import X from "@modules/common/icons/x"
 import { useCollections, useMeCustomer } from "medusa-react"
 import Link from "next/link"
 import ReactCountryFlag from "react-country-flag"
+import { useRouter } from "next/router";
+import React, { useState, useEffect } from "react";
+import { ProductCategory } from "@medusajs/medusa";
+import Medusa from "@medusajs/medusa-js";
+import ChevronDown from "@modules/common/icons/chevron-down"
+import Search from "@modules/common/icons/search"
+import X from "@modules/common/icons/x"
+import { useProductCategories } from "medusa-react";
 
 const MainMenu = () => {
   const { collections } = useCollections()
@@ -23,20 +30,57 @@ const MainMenu = () => {
   const setScreenCountry = () => setScreen("country")
   const setScreenSearch = () => setScreen("search")
 
+  const [categorias, setCategorias] = useState<Array<ProductCategory>>([]);
+  const { push } = useRouter();
+
+  const { product_categories, isLoading } = useProductCategories();
+
+  useEffect(() => {
+    const medusa = new Medusa({ baseUrl: "http://localhost:9000/", maxRetries: 3 });
+
+    const fetchData = async () => {
+      if (!product_categories) {
+        return;
+      }
+
+      const updatedCategories: Array<ProductCategory> = [];
+
+      for (const category of product_categories) {
+        const updatedCategory: ProductCategory = {
+          ...category,
+          category_children: [],
+        };
+
+        for (const childCategory of category.category_children) {
+          const { product_category } = await medusa.productCategories.retrieve(
+            childCategory.id
+          );
+
+          updatedCategory.category_children.push(product_category);
+        }
+
+        updatedCategories.push(updatedCategory);
+      }
+
+      setCategorias(updatedCategories);
+    };
+
+    fetchData();
+  }, [product_categories]);
+
   return (
     <div className="flex flex-col flex-1">
       <div className="flex items-center justify-between w-full border-b border-gray-200 py-4 px-6">
         <div className="flex-1 basis-0">
           <button
-            className="flex items-center gap-x-2"
+            className="flex items-center gap-x-2 text-gray-500 hover:text-gray-700 focus:outline-none"
             onClick={setScreenCountry}
           >
             <ReactCountryFlag countryCode={countryCode || "us"} svg />
-            <ChevronDown />
+            <ChevronDown className="h-5 w-5" />
           </button>
         </div>
         <div>
-          {/* <h1 className="text-xl-semi uppercase">Ruger</h1> */}
           <img className="header-logo" src="/logo-header-black.svg" alt="logo TSK" />
         </div>
         <div className="flex-1 basis-0 flex justify-end">
@@ -49,7 +93,7 @@ const MainMenu = () => {
       <div className="space-y-6 flex-1 flex flex-col justify-between p-6">
         {process.env.FEATURE_SEARCH_ENABLED && (
           <button
-            className="bg-gray-50 flex items-center px-4 py-2 gap-x-2 text-gray-500"
+            className="bg-gray-50 flex items-center px-4 py-2 gap-x-2 text-gray-500 hover:text-gray-700 focus:outline-none"
             onClick={setScreenSearch}
           >
             <Search size={24} />
@@ -61,99 +105,73 @@ const MainMenu = () => {
 
         <div className="flex flex-col flex-1 text-large-regular text-gray-900">
           <ul className="flex flex-col gap-y-2">
-            <li className="bg-gray-50 p-4">
-              <Link href="/store">
-                <a>
-                  <button
-                    className="flex items-center justify-between w-full"
-                    onClick={close}
-                  >
-                    <span className="sr-only">Go to Store</span>
-                    <span>Store</span>
-                    <ChevronDown className="-rotate-90" />
-                  </button>
-                </a>
-              </Link>
-            </li>
-            {collections ? (
+            {isLoading && <span>Loading...</span>}
+            {product_categories && !product_categories.length && (
+              <span>No Categories</span>
+            )}
+            {product_categories && product_categories.length > 0 && (
               <>
-                {collections.map((collection) => (
-                  <li key={collection.id} className="bg-gray-50 p-4">
-                    <Link href={`/collections/${collection.id}`}>
-                      <a>
-                        <button
-                          className="flex items-center justify-between w-full"
-                          onClick={close}
-                        >
-                          <span className="sr-only">
-                            Go to {collection.title} collection
-                          </span>
-                          <span>{collection.title}</span>
-                          <ChevronDown className="-rotate-90" />
-                        </button>
-                      </a>
-                    </Link>
-                  </li>
-                ))}
+                {product_categories
+                  .filter((category) => !category.parent_category)
+                  .map((category: ProductCategory, index) => {
+                    const hasChildren = category.category_children.length > 0;
+
+                    return (
+                      <Disclosure key={category.id}>
+                        {({ open }) => (
+                          <>
+                            <Disclosure.Button className="flex items-center justify-between w-full bg-gray-200 py-3 px-4 rounded-lg focus:outline-none">
+                              <span className="font-medium">{category.name}</span>
+                              {hasChildren && (
+                                <ChevronDownIcon
+                                  className={`${
+                                    open ? '-rotate-180' : 'rotate-0'
+                                  } w-5 h-5`}
+                                />
+                              )}
+                            </Disclosure.Button>
+                            {hasChildren && (
+                              <Transition
+                                show={open}
+                                enter="transition duration-200 ease-out"
+                                enterFrom="opacity-0"
+                                enterTo="opacity-100"
+                                leave="transition duration-200 ease-out"
+                                leaveFrom="opacity-100"
+                                leaveTo="opacity-0"
+                              >
+                                <Disclosure.Panel
+                                  className="w-full justify-between w-full bg-gray-200 px-2 rounded-lg"
+                                  static
+                                >
+                                  {category.category_children.map((childCategory) => (
+                                    <div className="w-full justify-between w-full bg-gray-200 py-3 px-4 rounded-lg" key={childCategory.id}>
+                                      <Link
+                                        href={`/collections/${childCategory.id}`}
+                                        passHref
+                                      >
+                                        <a onClick={close} className="text-gray-700 w-full p-4 mt-2 hover:text-gray-900 focus:outline-none ">
+                                          <span>{childCategory.name}</span>
+                                        </a>
+                                      </Link>
+                                    </div>
+                                  ))}
+                                </Disclosure.Panel>
+                              </Transition>
+                            )}
+                          </>
+                        )}
+                      </Disclosure>
+                    );
+                  })}
               </>
-            ) : null}
+            )}
           </ul>
         </div>
 
         <div className="flex flex-col">
           <div className="flex flex-col gap-y-8 text-small-regular">
-            {!customer ? (
-              <div className="flex flex-col gap-y-4">
-                <span className="text-gray-700 uppercase">Account</span>
-                <Link href={`/account/login`} passHref>
-                  <a>
-                    <button
-                      className="flex items-center justify-between border-b border-gray-200 py-2 w-full"
-                      onClick={close}
-                    >
-                      <span className="sr-only">Go to sign in page</span>
-                      <span className="normal-case">Sign in</span>
-                      <ChevronDown className="-rotate-90" />
-                    </button>
-                  </a>
-                </Link>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-y-4">
-                <span className="text-gray-700 uppercase">Signed in as</span>
-                <Link href={`/account`} passHref>
-                  <a>
-                    <button
-                      className="flex items-center justify-between border-b border-gray-200 py-2 w-full"
-                      onClick={close}
-                    >
-                      <span className="sr-only">Go to account page</span>
-                      <span className="normal-case">{customer.email}</span>
-                      <ChevronDown className="-rotate-90" />
-                    </button>
-                  </a>
-                </Link>
-              </div>
-            )}
-            <div className="flex flex-col gap-y-4">
-              <span className="text-gray-700 uppercase">Delivery</span>
-              <button
-                className="flex items-center justify-between border-b border-gray-200 py-2"
-                onClick={setScreenCountry}
-              >
-                <span className="sr-only">
-                  Click to select shipping country
-                </span>
-                <div className="flex items-center gap-x-2">
-                  <ReactCountryFlag countryCode={countryCode || "us"} svg />
-                  <span className="normal-case">
-                    Shipping to{" "}
-                    {countries?.find((c) => c.country === countryCode)?.label}
-                  </span>
-                </div>
-                <ChevronDown className="-rotate-90" />
-              </button>
-            </div>
+            {/* Content goes here */}
           </div>
         </div>
       </div>

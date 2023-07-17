@@ -56,22 +56,9 @@ const CollectionTemplate: React.FC<CollectionTemplateProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView, hasNextPage])
 
-  let top_banner_image =  `/top-banners/${collection.title}.png`
-  let top_banner_image_mob =  `/top-banners/${collection.title}-mob.png`
 
   return (
     <>
-    {top_banner_image?
-    <>
-    <img src={top_banner_image} className="collection-top-banner hidden small:block" alt={collection.title} />
-    <img src={top_banner_image_mob} className="collection-top-banner small:hidden" alt={collection.title} />
-    </>
-    :
-    <>
-    <img src="/top-banners/top-banner-coleccion.png" className="collection-top-banner hidden small:block" alt={collection.title} />
-    <img src="/top-banners/top-banner-coleccion-mob.png" className="collection-top-banner small:hidden" alt={collection.title} />
-    </>
-    }
     <div className="content-container py-6">
       <div className="mb-8 text-2xl-semi">
         <h1 className="collection-title">{collection.title}</h1>

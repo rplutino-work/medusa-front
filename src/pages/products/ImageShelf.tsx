@@ -35,7 +35,7 @@ const fetchProduct = async (handle: string) => {
 const ShelfProductImage:React.FC<DetailProps> = ({ handle2}) => {
   
   const { query, isFallback, replace } = useRouter()
-  console.log(handle2)
+  
   const handle = typeof handle2 === "string" ? handle2 : ""
 
   const { data, isError, isLoading, isSuccess } = useQuery(

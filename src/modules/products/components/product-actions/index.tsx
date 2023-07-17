@@ -16,6 +16,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     useProductActions()
 
   const price = useProductPrice({ id: product.id, variantId: variant?.id })
+  console.log(product)
 
   const selectedPrice = useMemo(() => {
     const { variantPrice, cheapestPrice } = price
@@ -25,8 +26,8 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
   return (
     <div className="flex flex-col gap-y-2">
-      {product.collection && (
-        <Link href={`/collections/${product.collection.id}`}>
+      {product.categories && (
+        <Link href={`/collections/${product.categories}`}>
           <a className="text-small-regular text-gray-700">
             {product.collection.title}
           </a>
