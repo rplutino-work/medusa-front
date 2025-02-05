@@ -47,17 +47,10 @@ const ShelfProductImage:React.FC<DetailProps> = ({ handle2}) => {
     }
   )
 
-  // if (notFound) {
-  //   if (IS_BROWSER) {
-  //     replace("/404")
-  //   }
 
-  //   return <SkeletonProductPage />
-  // }
-
-  // if (isFallback || isLoading || !data) {
-  //   return <SkeletonProductPage />
-  // }
+  if (isFallback || isLoading || !data) {
+    return <SkeletonProductPage />
+  }
 
   if (isError) {
     replace("/404")

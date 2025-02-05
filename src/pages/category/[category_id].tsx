@@ -9,6 +9,7 @@ import { IS_BROWSER } from "@lib/constants"
 import CategoryTemplate from "@modules/category/templates"
 import Head from "@modules/common/components/head"
 import Layout from "@modules/layout/templates"
+import { medusaClient } from "@lib/config"
 
 interface Category {
   id: string;
@@ -20,7 +21,7 @@ interface Params extends ParsedUrlQuery {
 }
 
 export const fetchCategory = async ({ category_id }: { category_id: string }) => {
-  const medusa = new Medusa({ baseUrl: "http://localhost:9000/", maxRetries: 3 });
+  const medusa = new Medusa({ baseUrl: 'http://localhost:9000/', publishableApiKey: 'pk_fa85b1776e639721974f4ab752c7ffe0a69fbadf3b395caadc8bcde58274a2b3', maxRetries: 3 })
 
   try {
     const { product_category } = await medusa.productCategories.retrieve(category_id);
@@ -37,7 +38,31 @@ export const fetchProducts = async (url: string) => {
     const response = await fetch(url);
     const data = await response.json();
 
-    return data;
+    console.log('Data from first request:', data);
+
+    const medusaData = await medusaClient.products.list();
+
+    console.log('Data from Medusa request:', medusaData);
+
+    // Convertir data.productIds a una matriz
+    const existingProducts = data.productIds || [];
+
+    // Combinar los nuevos productos con los productos existentes
+    const mergedProducts = existingProducts.reduce((acc: any, existingProduct: any) => {
+      const matchingProduct = medusaData.products.find(
+        (newProduct) => newProduct.id === existingProduct.id
+      );
+
+      if (matchingProduct) {
+        acc.push(matchingProduct);
+      }
+
+      return acc;
+    }, []);
+
+    console.log('Merged products:', mergedProducts);
+
+    return mergedProducts;
   } catch (error) {
     console.error('Error al obtener los datos:', error);
     throw error;
@@ -66,16 +91,12 @@ const CategoryPage = (): ReactElement => {
   );
 
   if (categoryLoading || productsLoading) {
-    // if (IS_BROWSER) {
-    //   replace("/404")
-    // }
-
     return <SkeletonCollectionPage />
   }
 
   if (categoryError || productsError) {
-        if (IS_BROWSER) {
-      replace("/404")
+    if (IS_BROWSER) {
+      // replace("/404")
     }
     return <SkeletonCollectionPage />
   }
@@ -84,21 +105,21 @@ const CategoryPage = (): ReactElement => {
     return <SkeletonCollectionPage />
   }
 
-  const products = productsData.productIds || [];
+  const products = productsData || [];
 
   if (products.length < 1) {
-    console.log("La categoria no tiene productos")
+    console.log("La categoría no tiene productos");
     if (IS_BROWSER) {
-      replace("/404")
+      // replace("/404")
     }
     return <SkeletonCollectionPage />
   }
 
   return (
     <>
-        <Head title={categoryData.name} description={`${categoryData.name} collection`} />
-        <CategoryTemplate category={categoryData} products={products} />
-      </>
+      <Head title={categoryData.name} description={`${categoryData.name} collection`} />
+      <CategoryTemplate category={categoryData} products={products} />
+    </>
   );
 };
 

@@ -24,7 +24,7 @@ const DropdownMenu = () => {
   const { product_categories, isLoading } = useProductCategories();
 
   useEffect(() => {
-    const medusa = new Medusa({ baseUrl: "http://localhost:9000/", maxRetries: 3 });
+    const medusa = new Medusa({ baseUrl: "http://localhost:9000/", publishableApiKey: "pk_fa85b1776e639721974f4ab752c7ffe0a69fbadf3b395caadc8bcde58274a2b3", maxRetries: 3 })
 
     const fetchData = async () => {
       if (!product_categories) {
@@ -127,7 +127,7 @@ const DropdownMenu = () => {
                                         ?.category_children.map(
                                           (childCategory: ProductCategory) => (
                                             <div
-                                              className="flex flex-col flex-1 max-w-[30%]"
+                                              className="flex flex-col flex-1 max-w-[15%]"
                                               key={childCategory.id}
                                             >
                                               <Link href={`/category/${childCategory.id}`}>

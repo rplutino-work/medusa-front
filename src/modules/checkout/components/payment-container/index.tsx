@@ -30,8 +30,8 @@ const PaymentInfoMap: Record<string, { title: string; description: string }> = {
     description: "Selecciona la opción y finaliza compra para avanzar",
   },
   manual: {
-    title: "Test payment",
-    description: "Test payment using medusa-payment-manual",
+    title: "Acordar pago con vendedor",
+    description: "Realiza la compra y nos pondremos en contacto para avanzar con el pago",
   },
 }
 

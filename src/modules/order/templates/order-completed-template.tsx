@@ -13,6 +13,7 @@ type OrderCompletedTemplateProps = {
 const OrderCompletedTemplate: React.FC<OrderCompletedTemplateProps> = ({
   order,
 }) => {
+  console.log(order)
   return (
     <div className="bg-gray-50 py-6 min-h-[calc(100vh-64px)]">
       <div className="content-container flex justify-center">

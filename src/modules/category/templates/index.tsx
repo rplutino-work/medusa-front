@@ -76,6 +76,7 @@ const CategoryTemplate: React.FC<CategoryTemplateProps> = ({ category, products 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView, hasNextPage])
 
+
   return (
     <>
     {hasTopBannerImage && (

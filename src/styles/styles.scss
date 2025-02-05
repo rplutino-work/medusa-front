@@ -27,8 +27,9 @@
 
 // INICIO NAVBAR
 .header-logo {
-    height: 50px;
+    height: 70px;
     margin-bottom: 5px;
+    cursor: pointer;
 }
 .navbar-container {
     transition: all 600ms ease-in;
@@ -62,6 +63,7 @@
     font-size: 1rem;
     position: relative;
     height: auto;
+    width: max-content;
     font-weight: 100;
     color: white;
     &:hover {
@@ -402,6 +404,9 @@
         color: #222;
         font-family: 'Poppins';
     }
+    img {
+        background: rgb(204 204 204 / 26%);
+    }
 }
 .dropdown-menu-container {
     span {
@@ -423,6 +428,16 @@
         width: 100%;
         height: 200px;
     }
+    img {
+        background: rgb(204 204 204 / 26%);
+        object-fit: contain !important;
+    }
+  }
+  .product-page-buy-button {
+    font-family: 'Poppins', sans-serif;
+  }
+  .product-page-name {
+    font-family: 'Poppins', sans-serif;
   }
 
   // FIN PAGINA PRODUCTOS

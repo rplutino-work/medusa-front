@@ -36,7 +36,7 @@ const MainMenu = () => {
   const { product_categories, isLoading } = useProductCategories();
 
   useEffect(() => {
-    const medusa = new Medusa({ baseUrl: "http://localhost:9000/", maxRetries: 3 });
+    const medusa = new Medusa({ baseUrl: "http://localhost:9000/", publishableApiKey: "pk_fa85b1776e639721974f4ab752c7ffe0a69fbadf3b395caadc8bcde58274a2b3", maxRetries: 3 })
 
     const fetchData = async () => {
       if (!product_categories) {

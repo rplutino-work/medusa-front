@@ -16,13 +16,13 @@ const CheckoutTemplate = () => {
               <a className="text-small-semi text-gray-700 flex items-center gap-x-2 uppercase flex-1 basis-0">
                 <ChevronDown className="rotate-90" size={16} />
                 <span className="mt-px hidden small:block">
-                  Back to shopping cart
+                  Volver al carrito
                 </span>
-                <span className="mt-px block small:hidden">Back</span>
+                <span className="mt-px block small:hidden">Volver</span>
               </a>
             </Link>
             <Link href="/">
-              <a className="text-xl-semi">ACME</a>
+              <img className="header-logo" src="/logo-header-black.svg" alt="logo TSK" />
             </Link>
             <div className="flex-1 basis-0" />
           </nav>

@@ -54,7 +54,7 @@ const Item = ({ item, region }: ItemProps) => {
               onClick={() => deleteItem(item.id)}
             >
               <Trash size={14} />
-              <span>Remove</span>
+              <span>Eliminar</span>
             </button>
           </div>
           <div>

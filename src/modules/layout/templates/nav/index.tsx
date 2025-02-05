@@ -58,13 +58,13 @@ const Nav = () => {
           <Listbox defaultValue="">
             <Listbox.Button className="py-1 w-full">
               <div className="text-small-regular flex items-center gap-x-2 xsmall:justify-end">
-                <span>Idioma:</span>
+                {/* <span>Idioma:</span>
                   <span className="text-small-semi flex items-center gap-x-2">
                       Español
                   </span>
                   <span className="text-small-semi flex items-center gap-x-2">
                       Ingles
-                  </span>
+                  </span> */}
                 
               </div>
             </Listbox.Button>
@@ -79,8 +79,8 @@ const Nav = () => {
                   className="absolute -bottom-[calc(100%-36px)] left-0 xsmall:left-auto xsmall:right-0 max-h-[442px] overflow-y-scroll z-[900] bg-white drop-shadow-md text-small-regular uppercase text-black no-scrollbar"
                   static
                 >
-                      <span>dwwdd</span>
-                      <span>dwwdd</span>
+                      {/* <span>dwwdd</span>
+                      <span>dwwdd</span> */}
                 </Listbox.Options>
               </Transition>
             </div>

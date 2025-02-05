@@ -29,7 +29,7 @@ const FooterCTA = () => {
         <div>
           <h3 className="text-2xl-semi">Conocé un poco mas de nosotros</h3>
           <div className="mt-6">
-            <UnderlineLink href="/store">Ver más</UnderlineLink>
+            <UnderlineLink href="/nosotros">Ver más</UnderlineLink>
           </div>
         </div>
 

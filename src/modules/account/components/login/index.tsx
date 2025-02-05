@@ -39,9 +39,9 @@ const Login = () => {
 
   return (
     <div className="max-w-sm w-full flex flex-col items-center">
-      <h1 className="text-large-semi uppercase mb-6">Welcome back</h1>
+      <h1 className="text-large-semi uppercase mb-6">Hola!</h1>
       <p className="text-center text-base-regular text-gray-700 mb-8">
-        Sign in to access an enhanced shopping experience.
+        Ingresa para continuar tu experiencia de compra
       </p>
       <form className="w-full" onSubmit={onSubmit}>
         <div className="flex flex-col w-full gap-y-2">
@@ -53,7 +53,7 @@ const Login = () => {
           />
           <Input
             label="Password"
-            {...register("password", { required: "Password is required" })}
+            {...register("Contraseña", { required: "Contraseña is required" })}
             type="password"
             autoComplete="current-password"
             errors={errors}

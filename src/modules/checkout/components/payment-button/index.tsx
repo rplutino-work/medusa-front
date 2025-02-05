@@ -59,7 +59,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
         <MercadoPagoButton session={paymentSession} />
       )
     default:
-      return <Button disabled>Select a payment method</Button>
+      return <Button disabled>Selecciona un método de pago</Button>
   }
 }
 
@@ -261,7 +261,7 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
 
   return (
     <Button disabled={submitting || notReady} onClick={handlePayment}>
-      {submitting ? <Spinner /> : "Checkout"}
+      {submitting ? <Spinner /> : "Finalizar compra"}
     </Button>
   )
 }
